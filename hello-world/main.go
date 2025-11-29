@@ -79,6 +79,4 @@ func main() {
 
 	arr1 := [4]int{34, 56, 345, 4}
 	fmt.Println(arr1)
-
-	var map1 
 }
