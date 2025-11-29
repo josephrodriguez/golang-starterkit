@@ -21,8 +21,6 @@ jobs:
     uses: josephrodriguez/github-workflow/.github/workflows/golang-build.yaml@964336dbc0a133f137481791f12a9ca962b5e9d7
     with:
       go_version: 1.24.10
-      go_build_os: linux
-      go_build_arch: amd64
       go_project_dir: '${{ matrix.project_dir }}'
       go_build_output_dir: 'dist/'
       go_build_ldflags: '-s -w'
@@ -30,8 +28,7 @@ jobs:
       go_lint_enabled: false
       go_artifacts_enabled: false
       sonar_analysis_enabled: true
-      sonar_cache_enabled: true
-      sonar_project_key: 'josephrodriguez_gotter'
+      sonar_project_key: 'josephrodriguez_golang-starterkit'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
