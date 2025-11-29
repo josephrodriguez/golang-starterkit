@@ -26,6 +26,7 @@ jobs:
       go_build_ldflags: '-s -w'
       go_build_gcflags: 'all=-trimpath=${PWD}'
       go_lint_enabled: false
+      go_coverage_enabled: false
       go_artifacts_enabled: false
       sonar_analysis_enabled: true
       sonar_project_key: 'josephrodriguez_golang-starterkit'
