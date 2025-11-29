@@ -1,0 +1,43 @@
+name: go-build
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+      - fix/*
+      - release/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        project_dir: ['hello-world']
+    permissions:
+      contents: read
+    uses: josephrodriguez/github-workflow/.github/workflows/golang-build.yaml@7a818785cd63b5999c62d9823a4d1bf900ccc9a8
+    with:
+      go_version: 1.24.10
+      go_build_os: linux
+      go_build_arch: amd64
+      go_project_dir: '${{ matrix.project_dir }}'
+      go_build_output_dir: 'dist/'
+      go_build_ldflags: '-s -w'
+      go_build_gcflags: 'all=-trimpath=${PWD}'
+      go_lint_enabled: false
+      go_artifacts_enabled: false
+      sonar_analysis_enabled: true
+      sonar_cache_enabled: true
+      sonar_project_key: 'josephrodriguez_gotter'
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  dependabot:
+    needs: [build]
+    permissions: write-all
+    uses: josephrodriguez/github-workflow/.github/workflows/dependabot-merge-pull-request.yaml@7a818785cd63b5999c62d9823a4d1bf900ccc9a8
+    secrets:
+      AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
