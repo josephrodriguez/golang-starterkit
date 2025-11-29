@@ -3,6 +3,24 @@ package main
 import "fmt"
 
 func main() {
+	section("Basic")
+	demoBasic()
+
+	section("Control Flow")
+	demoControlFlow()
+
+	section("Collections")
+	demoCollections()
+
+	section("Maps")
+	demoMaps()
+}
+
+func section(name string) {
+	fmt.Println("\n=====", name, "=====")
+}
+
+func demoBasic() {
 	fmt.Println("Hello, World!")
 	fmt.Println("1 + 1 =", 1+1)
 	fmt.Println(len("Hello, World!"))
@@ -32,7 +50,9 @@ func main() {
 	d += 1
 
 	fmt.Println("x is now", d)
+}
 
+func demoControlFlow() {
 	var i int = 1
 
 	//Control structures
@@ -68,10 +88,12 @@ func main() {
 	} else {
 		fmt.Println("Small")
 	}
+}
 
+func demoCollections() {
 	var arr [10]int
 
-	for i := range len(arr) {
+	for i := range arr {
 		arr[i] = i * 10
 	}
 
@@ -79,4 +101,21 @@ func main() {
 
 	arr1 := [4]int{34, 56, 345, 4}
 	fmt.Println(arr1)
+}
+
+func demoMaps() {
+	var age map[string]int = make(map[string]int)
+	age["Alice"] = 30
+	age["Bob"] = 25
+
+	fmt.Println("Alice is", age["Alice"], "years old.")
+	fmt.Println("Bob is", age["Bob"], "years old.")
+
+	var money = map[string]float32{
+		"Alice": 100.50,
+		"Bob":   200.75,
+	}
+
+	fmt.Println("Alice has $", money["Alice"])
+	fmt.Println("Bob has $", money["Bob"])
 }

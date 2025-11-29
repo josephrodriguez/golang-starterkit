@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        project_dir: ['hello-world']
+        project_dir: ['chapter01', 'chapter02']
     permissions:
       contents: read
     uses: josephrodriguez/github-workflow/.github/workflows/golang-build.yaml@964336dbc0a133f137481791f12a9ca962b5e9d7
