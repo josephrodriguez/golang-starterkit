@@ -116,6 +116,34 @@ func demoMaps() {
 		"Bob":   200.75,
 	}
 
+	alice, ok := money["Alice"]
+
+	fmt.Println(alice, ok)
+
 	fmt.Println("Alice has $", money["Alice"])
 	fmt.Println("Bob has $", money["Bob"])
+
+	delete(money, "Alice")
+	fmt.Println(money)
+
+	elements := map[string]map[string]string{
+		"H": {
+			"name":  "Hydrogen",
+			"state": "gas",
+		},
+	}
+
+	fmt.Println(elements["H"]["name"])
+
+	array1 := [4]int{1, 2, 3, 4}
+
+	for _, value := range array1 {
+		fmt.Println(value)
+	}
+
+	var array2 [5]int = [5]int{10, 20, 30, 40, 50}
+
+	for index, value := range array2 {
+		fmt.Println(index, value)
+	}
 }

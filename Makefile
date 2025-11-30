@@ -37,12 +37,12 @@ run-all: ## Run every module containing main.go (one by one)
 build-all: ## Build all modules into bin/ (name = dir path with / -> -)
 	@mkdir -p bin
 	@for d in $(shell find . -type f -name main.go 2>/dev/null | sed 's:/main.go::' | sed 's|^./||' | sort -u); do \
-		if [ -d "$$d" ]; then \
+		if [ -f "$$d/main.go" ]; then \
 			name=$$(echo $$d | tr '/' '-'); \
 			echo "building $$d -> bin/$$name"; \
 			cd "$$d" && go build -o ../../bin/$$name . || exit 1; \
 		else \
-			echo "skipping missing: $$d"; \
+			echo "skipping missing or incomplete: $$d"; \
 		fi; \
 	done
 
