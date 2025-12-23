@@ -44,3 +44,35 @@ func (t *BinaryTree[T]) Add(element T) {
 		}
 	}
 }
+
+func (t *BinaryTree[T]) Delete(element T) {
+
+}
+
+func (t *BinaryTree[T]) Search(element T) bool {
+
+	if t.root == nil {
+		return false
+	}
+
+	for current := t.root; current != nil; {
+		switch {
+		case element > current.value:
+			current = current.right
+		case element < current.value:
+			current = current.left
+		default:
+			return true
+		}
+	}
+
+	return false
+}
+
+func (t *BinaryTree[T]) Count() int {
+	return 0
+}
+
+func (t *BinaryTree[T]) Depth() int {
+	return 0
+}
