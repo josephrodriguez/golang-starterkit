@@ -9,7 +9,8 @@ type node[T cmp.Ordered] struct {
 }
 
 type BinaryTree[T cmp.Ordered] struct {
-	root *node[T]
+	root  *node[T]
+	count int
 }
 
 func NewBinaryTree[T cmp.Ordered]() *BinaryTree[T] {
@@ -22,6 +23,7 @@ func (t *BinaryTree[T]) Add(element T) {
 
 	if t.root == nil {
 		t.root = &node[T]{value: element}
+		t.count++
 		return
 	}
 
@@ -30,12 +32,14 @@ func (t *BinaryTree[T]) Add(element T) {
 		case element > current.value:
 			if current.right == nil {
 				current.right = &node[T]{value: element}
+				t.count++
 				return
 			}
 			current = current.right
 		case element < current.value:
 			if current.left == nil {
 				current.left = &node[T]{value: element}
+				t.count++
 				return
 			}
 			current = current.left
@@ -45,8 +49,17 @@ func (t *BinaryTree[T]) Add(element T) {
 	}
 }
 
-func (t *BinaryTree[T]) Delete(element T) {
+func (t *BinaryTree[T]) Delete(element T) bool {
 
+	if t.root == nil {
+		return false
+	}
+
+	for current := t.root; current != nil; {
+		return false
+	}
+
+	return false
 }
 
 func (t *BinaryTree[T]) Search(element T) bool {
@@ -69,10 +82,36 @@ func (t *BinaryTree[T]) Search(element T) bool {
 	return false
 }
 
-func (t *BinaryTree[T]) Count() int {
-	return 0
+func (t *BinaryTree[T]) Min() (T, bool) {
+
+	current := t.root
+
+	for current.left != nil {
+		current = current.left
+	}
+
+	return current.value, current != nil
 }
 
-func (t *BinaryTree[T]) Depth() int {
+func (t *BinaryTree[T]) Max() (T, bool) {
+
+	current := t.root
+
+	for current.right != nil {
+		current = current.right
+	}
+
+	return current.value, current != nil
+}
+
+func (t *BinaryTree[T]) IsEmpty() bool {
+	return t.count == 0
+}
+
+func (t *BinaryTree[T]) Count() int {
+	return t.count
+}
+
+func (t *BinaryTree[T]) Height() int {
 	return 0
 }
