@@ -49,6 +49,13 @@ func (t *BinaryTree[T]) Add(element T) {
 	}
 }
 
+func (t *BinaryTree[T]) AddRange(elements ...T) {
+
+	for _, element := range elements {
+		t.Add(element)
+	}
+}
+
 func (t *BinaryTree[T]) Delete(element T) bool {
 
 	if t.root == nil {

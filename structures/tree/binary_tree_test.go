@@ -39,6 +39,18 @@ func TestAddDuplicateIgnored(t *testing.T) {
 	}
 }
 
+func TestAddRangeElements(t *testing.T) {
+
+	tree := NewBinaryTree[int]()
+
+	tree.AddRange(567, 785, 563, 123, 342, 3434, 0, 34, 10003, 389, 345, 232)
+	count := tree.Count()
+
+	if count != 12 {
+		t.Fatal("Unexpected count")
+	}
+}
+
 func BenchmarkAddRandom(b *testing.B) {
 
 	b.ResetTimer()
