@@ -197,6 +197,28 @@ func (t *BinaryTree[T]) Height() int {
 	return 0
 }
 
+func (t *BinaryTree[T]) PreOrder(visit func(T) bool) {
+	var traverse func(node *node[T]) bool
+
+	traverse = func(node *node[T]) bool {
+		if node == nil {
+			return true
+		}
+
+		if !visit(node.value) {
+			return false
+		}
+
+		if !traverse(node.left) {
+			return false
+		}
+
+		return traverse(node.right)
+	}
+
+	traverse(t.root)
+}
+
 func (t *BinaryTree[T]) InOrder(visit func(T) bool) {
 	var traverse func(*node[T]) bool
 
@@ -205,7 +227,7 @@ func (t *BinaryTree[T]) InOrder(visit func(T) bool) {
 			return false
 		}
 
-		if node.left != nil && !traverse(node.left) {
+		if !traverse(node.left) {
 			return false
 		}
 
@@ -213,11 +235,29 @@ func (t *BinaryTree[T]) InOrder(visit func(T) bool) {
 			return false
 		}
 
-		if node.right != nil && !traverse(node.right) {
+		return traverse(node.right)
+	}
+
+	traverse(t.root)
+}
+
+func (t *BinaryTree[T]) PostOrder(visit func(T) bool) {
+	var traverse func(node *node[T]) bool
+
+	traverse = func(node *node[T]) bool {
+		if node == nil {
+			return true
+		}
+
+		if !traverse(node.left) {
 			return false
 		}
 
-		return true
+		if !traverse(node.right) {
+			return false
+		}
+
+		return visit(node.value)
 	}
 
 	traverse(t.root)
