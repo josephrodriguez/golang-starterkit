@@ -2,6 +2,7 @@ package tree
 
 import (
 	"math/rand"
+	"sort"
 	"testing"
 )
 
@@ -99,6 +100,32 @@ func TestDeleteRightLeafNodes(t *testing.T) {
 
 			if tree.Count() != test.count {
 				t.Fatal("Unexpected tree count value:", tree.Count())
+			}
+		})
+	}
+}
+
+func TestInOrder(t *testing.T) {
+	tests := []struct {
+		name     string
+		elements []int
+	}{
+		{"Should return in-order elements", []int{5, 3, 4, 2, 7, 6, 8}},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			tree := NewBinaryTree[int]()
+			tree.InsertRange(test.elements...)
+
+			inorder := make([]int, 0, len(test.elements))
+			tree.InOrder(func(i int) bool {
+				inorder = append(inorder, i)
+				return true
+			})
+
+			if !sort.SliceIsSorted(inorder, func(i, j int) bool { return inorder[i] < inorder[j] }) {
+				t.Fatal("In-order walk it's expected to run sorted elements")
 			}
 		})
 	}

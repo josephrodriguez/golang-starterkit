@@ -123,7 +123,7 @@ func (t *BinaryTree[T]) Delete(element T) bool {
 				t.transplant(parent, current, minNode)
 				minNode.left = current.left
 			}
-			
+
 			t.count--
 			return true
 		}
@@ -195,6 +195,32 @@ func (t *BinaryTree[T]) Count() int {
 // The current implementation always returns zero.
 func (t *BinaryTree[T]) Height() int {
 	return 0
+}
+
+func (t *BinaryTree[T]) InOrder(visit func(T) bool) {
+	var traverse func(*node[T]) bool
+
+	traverse = func(node *node[T]) bool {
+		if node == nil {
+			return false
+		}
+
+		if node.left != nil && !traverse(node.left) {
+			return false
+		}
+
+		if !visit(node.value) {
+			return false
+		}
+
+		if node.right != nil && !traverse(node.right) {
+			return false
+		}
+
+		return true
+	}
+
+	traverse(t.root)
 }
 
 func (t *BinaryTree[T]) transplant(parent *node[T], u *node[T], v *node[T]) {
