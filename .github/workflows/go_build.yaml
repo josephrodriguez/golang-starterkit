@@ -15,7 +15,7 @@ jobs:
       contents: read
     uses: josephrodriguez/github-workflow/.github/workflows/golang-build.yaml@f6f35865ab24bd02b187994c654d91b54bd1aa18
     with:
-      go_version: 1.24.10
+      go_version: 1.25.5
       go_build_output_dir: 'release/'
       go_tests_enabled: false
       go_lint_enabled: false
