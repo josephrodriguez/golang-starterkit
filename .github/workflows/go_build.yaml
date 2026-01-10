@@ -1,0 +1,30 @@
+name: go-build
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+      - fix/*
+      - release/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    permissions:
+      contents: read
+    uses: josephrodriguez/github-workflow/.github/workflows/golang-build.yaml@f6f35865ab24bd02b187994c654d91b54bd1aa18
+    with:
+      go_version: 1.24.10
+      go_build_output_dir: 'release/'
+      go_tests_enabled: false
+      go_lint_enabled: false
+      go_coverage_enabled: false
+      go_artifacts_enabled: false
+
+  dependabot:
+    needs: [build]
+    permissions: write-all
+    uses: josephrodriguez/github-workflow/.github/workflows/dependabot-merge-pull-request.yaml@f6f35865ab24bd02b187994c654d91b54bd1aa18
+    secrets:
+      AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
